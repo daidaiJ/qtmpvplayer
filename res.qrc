@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>active.svg</file>
+        <file>back.svg</file>
+        <file>hold.svg</file>
+        <file>mpv-icon.ico</file>
+        <file>next.svg</file>
+    </qresource>
+</RCC>
