@@ -14,6 +14,7 @@ SOURCES += \
     mpvplayer.cc
 
 HEADERS += \
+    ListItemWithIdx.h \
     mainwindow.h \
     mpvclient.h \
     mpvplayer.h

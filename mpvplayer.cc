@@ -18,10 +18,13 @@ void MPlayer::create_player(QWidget* win){
     mpv_set_option_string(mpv, "sub-back-color", "#00000000"); // 将黑边上的字幕颜色设置为白色
     mpv_set_option_string(mpv, "audio-pitch-correction", "yes"); // 修复音频加速带来的变调
     mpv_set_option_string(mpv, "cache", "auto"); // 启用网络缓存
-    mpv_observe_property(mpv, 0, "time-pos", MPV_FORMAT_DOUBLE);
-    mpv_observe_property(mpv,0,"sub-end",MPV_FORMAT_DOUBLE);
+    mpv_set_option_string(mpv, "sub-ass-override", "strip"); // 启用网络缓存
+    mpv_set_option_string(mpv, "sub-pos", "95"); // 启用网络缓存
+
     connect(this, &MPlayer::mpv_events, this, &MPlayer::on_mpv_callback,
             Qt::QueuedConnection);
+    mpv_observe_property(mpv, 0, "time-pos/full", MPV_FORMAT_DOUBLE);
+    mpv_observe_property(mpv,0,"sub-end/full",MPV_FORMAT_DOUBLE);
     mpv_set_wakeup_callback(mpv, wakeup, this);
     if (mpv_initialize(mpv) < 0)
         throw std::runtime_error("mpv failed to initialize");
@@ -120,6 +123,16 @@ void MPlayer::sleep(int msec){
         // 让出20ms
         QCoreApplication::processEvents(QEventLoop::AllEvents, 20);
 }
+void MPlayer::setPauseSyncCallBack(std::function<void(bool)> _cb){
+    if(_cb){
+        this->cb = _cb;
+    }
+}
+void MPlayer::setSubSyncCB(std::function<void(const std::string&)> _cb){
+    if(_cb){
+        subsync = _cb;
+    }
+}
 void MPlayer::handle_mpv_event(mpv_event* ev){
     switch (ev->event_id)
     {
@@ -128,7 +141,7 @@ void MPlayer::handle_mpv_event(mpv_event* ev){
     {
         mpv_event_property *prop = (mpv_event_property *)ev->data;
 
-        if (strcmp(prop->name, "time-pos") == 0)
+        if (strcmp(prop->name, "time-pos/full") == 0)
         {
             if (prop->format == MPV_FORMAT_DOUBLE)
             {
@@ -140,7 +153,7 @@ void MPlayer::handle_mpv_event(mpv_event* ev){
                 emit end();
                 qDebug() << "播放结束";
             }
-        }else if(strcmp(prop->name, "sub-end") == 0){
+        }else if(strcmp(prop->name, "sub-end/full") == 0){
             if (prop->format == MPV_FORMAT_DOUBLE&&this->sid!=-1)
             {
                 // 获得播放时间
@@ -151,22 +164,39 @@ void MPlayer::handle_mpv_event(mpv_event* ev){
                 //     return;
                 // }
                 auto cts =*(double*)prop->data;
+                if(this->sub_pause){
 
-                this->pause(true);
-                //延迟 0.5s 后取消暂停
+                    this->pause(true);
+                    if(cb){
+                        std::invoke(cb,true);
+                    }
+
+                    //延迟 0.5s 后取消暂停
 
 
                     auto str = mpv_get_property_string(mpv,"sub-text");
+                    if(strlen(str)!=0&&subsync){
+                        std::invoke(subsync,str);
+                    }
                     if(history!=str){
                         qDebug()<<cts<<str;
-                        log->info("sub-text : {}",str);
+                        log->info("start:{} sub-text : {}",QDateTime::fromMSecsSinceEpoch(cts).toString("yyyy-MM-dd hh:mm:ss:zzz").toStdString(),str);
                         history =str;
                     }
 
-                this->sleep(1000);
-                 this->last_subtime = cts;
+                    if(this->resume){
+                    this->sleep(1000);
 
-                this->pause(false);
+
+                    this->pause(false);
+                    if(cb){
+                        std::invoke(cb,false);
+                    }
+                    }
+                     this->last_subtime = cts;
+                }
+
+
             }
 
         }else if (prop->format == MPV_FORMAT_NONE)
@@ -196,3 +226,4 @@ void MPlayer::handle_mpv_event(mpv_event* ev){
     default: ;
     }
 }
+

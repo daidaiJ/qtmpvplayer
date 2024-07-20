@@ -6,13 +6,18 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <unordered_set>
+#include <QListWidgetItem>
+#include <QPropertyAnimation>
+#include <map>
 #include "mpvplayer.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
 
+static QString subsuffix[] ={".srt",".ass"};
 static std::unordered_set<QString> vfmtSet={"mkv","ts","mpeg","avi","mp4"};
 
 class MainWindow : public QMainWindow
@@ -34,14 +39,29 @@ private slots:
     void on_speed_currentTextChanged(const QString &arg1);
     void on_videolist_customContextMenu(const QPoint& pos);
     void on_trigge_fullscreen();
+    void hiddentoolbar();
+    void changeResume(bool checked);
+    void changePause(bool checked);
+    void addSubIdx(const std::string& sub);
+    void skipToSub(QListWidgetItem * item);
+// protected:
+//     void resizeEvent(QResizeEvent* ev)override;
 private:
     void changeDir(const QDir& dir);
-
+    void setPause(bool flag);
+    void save_config();
+    void load_config();
     void changeVideo(const QString& url);
+    void on_open_subtxt(QFile& file,QString &suf);
+
     // void resizeEvent(QResizeEvent* ev) override;
+    std::map<std::string,int> sublist;
+    int cursubIdx = -1;
+    int subCNT =0;
     Ui::MainWindow *ui;
     bool is_paused=false;
     bool is_fullscreen=false;
+    QPropertyAnimation *animat=nullptr;
     int tx=0,ty=0;
     QString url ="";
     QDir vdir ;

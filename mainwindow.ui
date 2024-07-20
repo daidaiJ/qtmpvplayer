@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>QPlayer</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
@@ -59,16 +59,58 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="7,1">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="7,0">
          <property name="spacing">
           <number>0</number>
          </property>
          <item>
-          <widget class="QWidget" name="mpv" native="true"/>
+          <widget class="QWidget" name="mpv" native="true">
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
          </item>
          <item>
           <widget class="QWidget" name="toolbar" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background: transparent;</string>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,2,0,2,0,2,0,1,0,2,0">
               <property name="spacing">
@@ -95,6 +137,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true"> border: none;margin:1px</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -104,8 +149,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>25</width>
-                  <height>25</height>
+                  <width>55</width>
+                  <height>55</height>
                  </size>
                 </property>
                </widget>
@@ -134,6 +179,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">background: transparent; border: none;margin:1px</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -143,8 +191,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>30</width>
-                  <height>30</height>
+                  <width>60</width>
+                  <height>60</height>
                  </size>
                 </property>
                </widget>
@@ -173,6 +221,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true"> border: none;</string>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -182,8 +233,8 @@
                 </property>
                 <property name="iconSize">
                  <size>
-                  <width>25</width>
-                  <height>25</height>
+                  <width>55</width>
+                  <height>55</height>
                  </size>
                 </property>
                </widget>
@@ -213,10 +264,31 @@
                  </sizepolicy>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">QSlider{&quot;margin-top&quot;:2px,&quot;margin-bottom&quot;:2px}</string>
+                 <string notr="true">QSlider::groove:horizontal{ 
+		height: 12px; 
+		left: 0px; 
+		right: 0px; 
+		border:0px;    //指定无边框
+	    border-radius:6px;    //指定圆角
+		background:rgba(0,0,0,50);
+ } 
+ //滑块的美化
+ QSlider::handle:horizontal{ 
+		width:  50px; 
+		height: 50px; 
+		margin-top: -20px; 
+		margin-left: 0px; 
+		margin-bottom: -20px; 
+		margin-right: 0px; 
+ 		border-image:url(:/res/images/setting_slider_handle.png);
+} 
+//已滑过的进度美化
+QSlider::sub-page:horizontal{
+	   background:rgba(80,166,234,1);
+}</string>
                 </property>
                 <property name="orientation">
-                 <enum>Qt::Vertical</enum>
+                 <enum>Qt::Horizontal</enum>
                 </property>
                </widget>
               </item>
@@ -243,6 +315,13 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>黑体</family>
+                  <pointsize>10</pointsize>
+                  <bold>false</bold>
+                 </font>
                 </property>
                 <item>
                  <property name="text">
@@ -309,33 +388,143 @@
        <property name="spacing">
         <number>0</number>
        </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,3,0,1">
+        <layout class="QVBoxLayout" name="verticalLayout" stretch="1">
          <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>playerlist</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="videolist"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>todaystat</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGraphicsView" name="statchart">
+          <widget class="QTabWidget" name="tabWidget">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
-             <verstretch>1</verstretch>
+             <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">margin: 0px;border:0px;</string>
+           </property>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="videotab">
+            <attribute name="title">
+             <string>视频</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QListWidget" name="videolist">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Microsoft Sans Serif</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">listWidget::item:selected {
+    border-left: 5px solid #777777;
+};
+listWidget::item {
+    background-color: #ffffff;
+    color: #000000;
+    border: transparent;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 8px;
+};
+listWidget::item:hover {
+    background-color: #f5f5f5;
+}
+</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="subtab">
+            <attribute name="title">
+             <string>字幕</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QListWidget" name="sublist">
+               <property name="font">
+                <font>
+                 <family>Microsoft Sans Serif</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">listWidget::item:selected {
+    border-left: 5px solid #777777;
+};
+listWidget::item {
+    background-color: #ffffff;
+    color: #000000;
+    border: transparent;
+    border-bottom: 1px solid #dbdbdb;
+    padding: 8px;
+};
+listWidget::item:hover {
+    background-color: #f5f5f5;
+}</string>
+               </property>
+               <property name="horizontalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -354,26 +543,101 @@
      <height>21</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <bold>true</bold>
+    </font>
+   </property>
    <widget class="QMenu" name="menuopen">
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
     <property name="title">
-     <string>open</string>
+     <string>打开</string>
     </property>
     <addaction name="opendir"/>
     <addaction name="separator"/>
     <addaction name="openvideo"/>
     <addaction name="separator"/>
    </widget>
+   <widget class="QMenu" name="menu">
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>播放</string>
+    </property>
+    <addaction name="actionspause"/>
+    <addaction name="actionautoresume"/>
+   </widget>
    <addaction name="menuopen"/>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="opendir">
    <property name="text">
-    <string>videodir</string>
+    <string>视频文件夹</string>
+   </property>
+   <property name="iconText">
+    <string>视频文件夹</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>10</pointsize>
+     <bold>false</bold>
+    </font>
    </property>
   </action>
   <action name="openvideo">
    <property name="text">
-    <string>video</string>
+    <string>视频源</string>
+   </property>
+   <property name="iconText">
+    <string>视频源</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>10</pointsize>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionspause">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>字幕暂停</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>10</pointsize>
+     <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionautoresume">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>自动恢复播放</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>10</pointsize>
+     <bold>false</bold>
+    </font>
    </property>
   </action>
  </widget>

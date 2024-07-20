@@ -25,6 +25,11 @@ public:
     int play(const QString& url);
     void changeSpeed(const QString& val);
     double getOSpeed()const {return vspeed;}
+    void setPauseSyncCallBack(std::function<void(bool)> _cb);
+    void setSubSyncCB(std::function<void(const std::string&)> _cb);
+    bool sub_pause = true;
+    bool resume = false;
+
 private slots:
     void on_mpv_callback();
 
@@ -33,6 +38,8 @@ signals:
     void end();
 private:
     mpv_handle * mpv=nullptr;
+    std::function<void(bool)>  cb=nullptr;
+    std::function<void(const std::string&)>  subsync=nullptr;
     void handle_mpv_event(mpv_event* event);
     void sleep(int msec);
     int sid=0;
